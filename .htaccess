@@ -1,0 +1,39 @@
+Options -Indexes
+AddDefaultCharset utf-8
+# php_flag display_errors 0
+# php_value post_max_size 128M
+# php_value upload_max_filesize 128M
+# php_value memory_limit 128M
+# php_value max_execution_time 60
+# php_value max_input_time 60
+ErrorDocument 402 /404.php
+ErrorDocument 403 /404.php
+ErrorDocument 404 /404.php
+ErrorDocument 500 /404.php
+ErrorDocument 501 /404.php
+ErrorDocument 502 /404.php
+DirectoryIndex index.php
+RewriteEngine on
+RewriteBase /
+RewriteRule ^/$ index.php [L,QSA]
+RewriteRule ^ru/(.*)$ /$1?lang=ru [L,QSA]
+RewriteRule ^en/(.*)$ /$1?lang=en [L,QSA]
+RewriteRule ^ajax/(.*)$ /$1?mode=ajax [L,QSA]
+RewriteRule ^robots.txt$ misc.php?controller=robots [L,QSA]
+RewriteRule ^image/([0-9]+)x([0-9]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+).jpg$ resize.php?apid=$3&key=$4&w=$1&h=$2 [L,QSA]
+RewriteRule ^attachment/([a-zA-Z0-9]+)/([0-9]+)/(.*)$ attachment.php?dmuid=$1&order=$2&original=$3 [L,QSA]
+RewriteRule ^item/print/([a-zA-Z0-9_-]+)_([0-9]+)$ item.php?mode=print&controller=item&id=$2 [L,QSA]
+RewriteRule ^item/([a-zA-Z0-9_-]+)_([0-9]+)$ item.php?controller=item&id=$2 [L,QSA]
+RewriteRule ^moderation/list/(waiting|inactive|moderated|complaints)/$ moderation_list.php?controller=$1 [L,QSA]
+RewriteRule ^my/(waiting|inactive|moderated)/$ my.php?controller=$1 [L,QSA]
+RewriteRule ^my/message/([0-9]+)$ my_messages.php?controller=message&mid=$1 [L,QSA]
+RewriteRule ^my/messages/([0-9]+)$ my_messages.php?controller=messages&aid=$1 [L,QSA]
+RewriteRule ^my/messages/(sent|archive)/$ my_messages.php?controller=$1 [L,QSA]
+RewriteRule ^pay/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ gateway.php?controller=gateway&code=$1&action=$2 [L,QSA]
+RewriteRule ^pay/([a-zA-Z0-9_-]+)/$ pay.php?controller=$1 [L,QSA]
+RewriteRule ^s-login/([a-zA-Z0-9_-]+)/$ /s-login.php?provider=$1 [L,QSA]
+RewriteRule ^list/$ list.php?controller=list&query=list [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ list.php?controller=list&query=$1/$2/$3/$4 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ list.php?controller=list&query=$1/$2/$3 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ list.php?controller=list&query=$1/$2 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/$ list.php?controller=list&query=$1 [L,QSA]
